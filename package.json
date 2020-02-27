@@ -1,0 +1,30 @@
+{
+  "name": "servinformacion",
+  "version": "1.0.0",
+  "description": "Servicio rest crud usuarios",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BryanRiano/servinformacion.git"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "servinformacion"
+  ],
+  "author": "Brayan Riaño",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BryanRiano/servinformacion/issues"
+  },
+  "homepage": "https://github.com/BryanRiano/servinformacion#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.2",
+    "uniqid": "^5.2.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+    "database": {
+        "debug": "mongodb://localhost/ServinformacionDB",
+        "prod": "mongodb://soporte:soporte2019@ds255282.mlab.com:55282/crud"
+    },
+    "geocoding": {
+        "url": "https://maps.googleapis.com/maps/api/geocode/json?address=",
+        "apikey": "AlzaSyAyTyGuBvUitD_Qs_MzAtWfjctn5UkQ2lo"
+    }
+}
