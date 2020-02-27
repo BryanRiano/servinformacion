@@ -5,6 +5,6 @@
     },
     "geocoding": {
         "url": "https://maps.googleapis.com/maps/api/geocode/json?address=",
-        "apikey": "AlzaSyAyTyGuBvUitD_Qs_MzAtWfjctn5UkQ2lo"
+        "apikey": "AIzaSyB0PLLiELJiVb1INOoJI3ye0ZAtLzbRGCs  "
     }
 }

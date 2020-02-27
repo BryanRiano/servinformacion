@@ -1,9 +1,9 @@
 const User = require('../models/user.js');
 const uniqid = require('uniqid');
-const https = require('https');
 const config = require('../config/config')
 const globals = config['geocoding'];
 const url = require('url');
+const request = require('request');
 
 
 module.exports = function (app) {
@@ -90,24 +90,33 @@ module.exports = function (app) {
         User.find({ "latitud": "", "longitud": "" }, (err, result) => {
             if (err) return next(err);
             if (result) {
-                res.status(200).send({
-                    'status': 'OK',
-                    'text': 'Usuarios encontrados',
-                    'datos': result
-                });
                 result.forEach(item => {
                     const urlFormat = `${globals.url}${item.direccion.replace(/[^a-zA-Z0-9]/g, "+")},${item.ciudad.replace(/ /g, "+")}&key=${globals.apikey}`;
                     const urlfind = url.format(urlFormat);
-                    console.log(urlfind)
-                    https.get(urlfind, (response) => {
-                        response.on('data', (response) => {
-                            console.log(JSON.parse(response));
-                        });
-    
-                    }).on('error', (e) => {
-                        console.error(e);
+                    request.get(urlfind, (err, resp, body) => {
+                        console.log(JSON.parse(body));
+                        const datageo = JSON.parse(body);
+                        if (datageo.status == 'OK') {
+                            const result = datageo.results;
+                            const latitud = result[0].geometry.location.lat ? result[0].geometry.location.lat : 0;
+                            const longitud = result[0].geometry.location.lng ? result[0].geometry.location.lng : 0;
+                            User.updateOne({'id': item.id},{ 'latitud': latitud ,'longitud': longitud}, (err, result) => {
+                                if (err) return next(err);
+                            });
+                        }
                     });
                 });
+                if (result) {
+                    res.status(200).send({
+                        'status': 'OK',
+                        'text': 'Usuario Actualizado'
+                    });
+                } else {
+                    res.status(500).send({
+                        'status': 'ERR',
+                        'text': 'Error al actualizar usuarios'
+                    });
+                }
             } else {
                 res.status(500).send({
                     'status': 'ERR',

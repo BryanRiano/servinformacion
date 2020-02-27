@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var UsuarioSchema = new mongoose.Schema({
   id: { type: String },
-  nombre: String,
+  nombre: {type: String},
   apellido: String,
   direccion: String,
   ciudad: String,
